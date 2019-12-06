@@ -23,3 +23,12 @@ Basic Plan:
     - Tests if player input is correct
     - Keeps track of player score
     - Keeps a high-score for the player that doesn't go away when restarted
+
+Silver Plan:
+
+- Remove placeholder css and move divs around to the correct spot
+- Add basic animations for when buttons are clicked to make them look like buttons
+
+Gold Plan:
+
+- Make everything look like a real Simon game (shapes and orientation)
