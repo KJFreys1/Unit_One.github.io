@@ -9,12 +9,27 @@ for (let i = 0; i < button.length; i++) {
     button[i].style.backgroundColor = colors[i]
 }
 
+const resetButton = document.querySelectorAll('.reset-button')
+for (let m = 0; m < resetButton.length; m++) {
+    resetButton[m].addEventListener('click', resetBoard)
+}
+
+const modal = document.querySelector('#modal')
+
+const currentScoreBox = document.querySelector('#current-score')
+const highScoreBox = document.querySelector('#high-score')
+const modalScore = document.querySelector('h2')
+const modalHighScore = document.querySelector('h3')
+
+let inPlay = true
 let playerTurn = false
 let playerScore = 0
+let highScore = 0
 let sequence = []
 let sequenceIndex = 0
 let playerIndex = 0
 let pause = 500
+
 startSequence()
 
 function startSequence () {
@@ -28,10 +43,14 @@ function addSequence () {
 
 function showSequence () {
     if (sequenceIndex < sequence.length) {
-        button[sequence[sequenceIndex]].style.backgroundColor = colorSelected[sequence[sequenceIndex]]
-        sequenceIndex++
-        setTimeout(changeDefault, pause)
-        setTimeout(showSequence, pause * 2)
+        if (inPlay) {
+            button[sequence[sequenceIndex]].style.backgroundColor = colorSelected[sequence[sequenceIndex]]
+            sequenceIndex++
+            setTimeout(changeDefault, pause)
+            if (inPlay) {
+                setTimeout(showSequence, pause * 2)
+            }
+        }
     } else {
         playerTurn = true
         sequenceIndex = 0
@@ -48,10 +67,11 @@ function isClicked (evt, i) {
                 playerTurn = false
                 playerIndex = 0
                 playerScore++
+                currentScoreBox.textContent =  `Current Score: ${playerScore}`
                 startSequence()
             }
         } else {
-            alert('oops')
+            openModal()
         }
     }
 }
@@ -60,4 +80,35 @@ function changeDefault() {
     for (let j = 0; j < button.length; j++) {
         button[j].style.backgroundColor = colors[j]
     }
+}
+
+function openModal () {
+    if (playerScore > highScore) {
+        highScore = playerScore
+        highScoreBox.textContent = `High Score: ${playerScore}`
+        modalHighScore.textContent = "New high score! Woo-hoo!"
+    } else {
+        modalHighScore.textContent = ''
+    }
+    modalScore.textContent = `Score: ${playerScore}`
+    modal.style.display = 'block'
+}
+
+function resetBoard () {
+    if (inPlay) {
+        inPlay = false
+        setTimeout(allowPlay, 1500)
+        playerTurn = false
+        playerScore = 0
+        sequence = []
+        sequenceIndex = 0
+        playerIndex = 0
+        currentScoreBox.textContent =  `Current Score: ${playerScore}`
+        modal.style.display = 'none'
+        setTimeout(startSequence, 500)
+    }
+}
+
+function allowPlay () {
+    inPlay = true
 }

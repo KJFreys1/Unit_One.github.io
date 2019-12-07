@@ -17,14 +17,23 @@
             <div id='blue' class="button"></div>
         </div>
         <div id="circle-container">
-            <div id="circle">SIMON</div>
+            <div id="circle" class='reset-button'>SIMON</div>
+        </div>
+    </section>
+    <section id='score-board'>
+        <div id='current-container'>
+            <div id='current-score'>Current Score: 0</div>
+        </div>
+        <div id='high-container'>
+            <div id='high-score'>High Score: 0</div>
         </div>
     </section>
     <section id='modal'>
         <div id='modal-container'>
-            <h1>OOPS! That was the wrong button!</h1>
-            <h2>Score: ?</h2>
-            <button>Play Again</button>
+            <h1>OOPS! Sorry, that was the wrong button!</h1>
+            <h2>Score: 0</h2>
+            <h3></h3>
+            <button id='play-again' class='reset-button'>Play Again</button>
         </div>
     </section>
     <script src='simon-script.js'></script>
